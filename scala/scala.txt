@@ -1,0 +1,18 @@
+#open terminal and put the following cammand to run wordcount program on scala framework
+
+cd ~/Desktop
+pwd
+cat<<EQL>wordcount.csv
+
+#now we open wordcount.csv now we will insert the text 
+hello world 
+big data is fast 
+hello spark
+EQL
+
+ls -l wordcount.csv
+
+spark-shell
+val text=sc.textFile("file:///home/cloudera/Desktop/wordcount.csv")
+val counts=text.flatMap(line => line.split(" ")).map(word => (word,1)).reduceByKey(_+_)
+counts.collect.foreach(println)
